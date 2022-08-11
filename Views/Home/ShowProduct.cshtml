@@ -1,0 +1,44 @@
+@model Product
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <div class="center">
+        <div>
+            <a asp-controller = "Home" asp-action = "AllProducts">Home</a>
+        </div>
+        <h1>@Model.Name</h1>
+    </div>
+    <div class="container">
+        <div class="left">
+            <h3>Categories:</h3>
+            <ul>
+            @foreach(Association assoc in Model.Associations)
+            {
+                <li>@assoc.Category.Name</li>
+            }
+            </ul>
+        </div>
+        <div class="right">
+            <h3>Add Category:</h3>
+            <form asp-controller = "Home" asp-action = "AddCategoryToProduct" asp-route-productId = "@Model.ProductId" method = "POST">
+                <select name = "CategoryId">
+                    @foreach(Category cat in ViewBag.categoryWithoutProducts)
+                    {
+                        <option value = "@cat.CategoryId">@cat.Name</option>
+                    }
+                </select>
+                <div>
+                    <button>Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

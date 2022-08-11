@@ -1,0 +1,52 @@
+@model Product
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <div class="center">
+        <h1>Products | <a asp-controller = "Home" asp-action = "AllCategories">Categories</a></h1>
+    </div>
+    <div class="container">
+        <div class="left">
+            <h2>New Product</h2>
+            <form asp-controller = "Home" asp-action = "CreateProduct" method = "POST">
+                <div>
+                    <label asp-for = "Name"></label>
+                    <div>
+                        <input asp-for = "Name">
+                        <span asp-validation-for = "Name"></span>
+                    </div>
+                </div>
+                <div>
+                    <label asp-for = "Description"></label>
+                    <div>
+                        <textarea asp-for = "Description"></textarea>
+                        <span asp-validation-for = "Description"></span>
+                    </div>
+                </div>
+                <div>
+                    <label asp-for = "Price"></label>
+                    <div>
+                        <input asp-for = "Price">
+                        <span asp-validation-for = "Price"></span>
+                    </div>
+                </div>
+                <button>Create</button>
+            </form>
+        </div>
+        <div class="right">
+            <h2>Existing Products</h2>
+            @foreach(Product product in ViewBag.allProducts)
+            {
+                <p><a href = "/products/@product.ProductId">@product.Name</a></p>
+            }
+        </div>
+    </div>
+</body>
+</html>
